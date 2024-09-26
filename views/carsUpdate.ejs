@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/cars/create">Add New Car</a>
+      <a href="/cars/view">View all Cars</a>
+      <a href="/cars/update">Update car</a>
+      <a href="/cars/delete">Delete car</a>
+    </nav>
+
+    <h1>this is Cars Update page</h1>
+    <h1>Update Car Information</h1>
+    <h2>All Cars</h2>
+  <% if (allCars.length > 0) { %>
+    <ol>
+      <% allCars.forEach((car) => { %>
+        <li>
+          <strong>ID:</strong> <%= car._id %>,
+          <strong>Make:</strong> <%= car.make %>, 
+          <strong>Model:</strong> <%= car.model %>, 
+          <strong>Year:</strong> <%= car.year %>, 
+          <strong>Mileage:</strong> <%= car.mileage %> miles, 
+          <strong>Color:</strong> <%= car.color %>, 
+          <strong>Price:</strong> $<%= car.price %>
+        </li>
+      <% }) %>
+    </ol>
+  <% } else { %>
+    <p>No cars available to display.</p>
+  <% } %>
+
+  <form action="/cars/update" method="POST">
+    <label for="carId">Car ID to Update:</label>
+    <input type="text" name="carId" id="carId" required>
+    
+    <label for="make">Make:</label>
+    <input type="text" name="make" id="make">
+
+    <label for="model">Model:</label>
+    <input type="text" name="model" id="model">
+
+    <label for="year">Year:</label>
+    <input type="number" name="year" id="year">
+
+    <label for="mileage">Mileage:</label>
+    <input type="number" name="mileage" id="mileage">
+
+    <label for="color">Color:</label>
+    <input type="text" name="color" id="color">
+
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price">
+
+    <button type="submit">Update Car</button>
+  </form>
+  </body>
+</html>
