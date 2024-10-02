@@ -4,6 +4,8 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config();
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -13,62 +15,57 @@ mongoose.connection.on("connected", () => {
 
 const Car = require("./models/car.js");
 
-app.get("/", (req, res) => {
-  res.render("carsHome.ejs");
-});
-app.get("/cars/create", (req, res) => {
-  res.render("carsCreate.ejs");
-});
-
-app.post("/cars/create", async (req, res) => {
-  const car = await Car.create(req.body);
-  res.redirect("/cars/view");
-});
-
-app.get("/cars/view", async (req, res) => {
+app.get("/cars", async (req, res) => {
   const cars = await Car.find({});
-  res.render("carsView.ejs", {
-    allCars: cars,
-  });
+  res.render("carsIndex.ejs", { allCars: cars });
 });
 
-app.get("/cars/update", async (req, res) => {
-  const cars = await Car.find({});
-  res.render("carsUpdate.ejs", {
-    title: "Update Car",
-    allCars: cars,
-  });
+app.get("/cars/new", (req, res) => {
+  res.render("carsNew.ejs");
+});
+//==========================================
+// CREATE CARS
+//==========================================
+
+app.post("/cars", async (req, res) => {
+  await Car.create(req.body);
+  res.redirect("/cars");
 });
 
-app.post("/cars/update", async (req, res) => {
-  const { carId, make, model, year, mileage, color, price } = req.body;
+//==========================================
+// SHOW CARS
+//==========================================
 
-  const updateData = {};
-
-  if (make) updateData.make = make;
-  if (model) updateData.model = model;
-  if (year) updateData.year = year;
-  if (mileage) updateData.mileage = mileage;
-  if (color) updateData.color = color;
-  if (price) updateData.price = price;
-
-  await Car.findByIdAndUpdate(carId, updateData);
-
-  res.redirect("/cars/view");
+app.get("/cars/:id", async (req, res) => {
+  const car = await Car.findById(req.params.id);
+  res.render("carsShow.ejs", { car });
 });
 
-app.get("/cars/delete", async (req, res) => {
-  const cars = await Car.find({});
-  res.render("carsDelete.ejs", {
-    title: "Delete Car",
-    allCars: cars,
-  });
+//==========================================
+// EDIT CARS
+//==========================================
+
+app.get("/cars/:id/edit", async (req, res) => {
+  const car = await Car.findById(req.params.id);
+  res.render("carsEdit.ejs", { car });
 });
 
-app.post("/cars/delete", async (req, res) => {
-  const { carId } = req.body;
-  await Car.findByIdAndDelete(carId);
-  res.redirect("/cars/view");
+//==========================================
+// UPDATE CARS
+//==========================================
+
+app.put("/cars/:id", async (req, res) => {
+  await Car.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect(`/cars/${req.params.id}`);
+});
+
+//==========================================
+// DELETE CARS
+//==========================================
+
+app.delete("/cars/:id", async (req, res) => {
+  await Car.findByIdAndDelete(req.params.id);
+  res.redirect("/cars");
 });
 
 app.listen(3000, () => {

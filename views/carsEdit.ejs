@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Car</title>
+  </head>
+  <body>
+    <a href="/cars">All Cars</a>
+    <a href="/cars/new">Add New Car</a>
+    <h1>Edit <%= car.make %> <%= car.model %></h1>
+    <form action="/cars/<%= car._id %>?_method=PUT" method="POST">
+      <label
+        >Make:
+        <input
+          type="text"
+          name="make"
+          value="<%= car.make %>"
+          required /></label
+      ><br />
+      <label
+        >Model:
+        <input
+          type="text"
+          name="model"
+          value="<%= car.model %>"
+          required /></label
+      ><br />
+      <label
+        >Year:
+        <input
+          type="number"
+          name="year"
+          value="<%= car.year %>"
+          required /></label
+      ><br />
+      <label
+        >Mileage:
+        <input
+          type="number"
+          name="mileage"
+          value="<%= car.mileage %>"
+          required /></label
+      ><br />
+      <label
+        >Color:
+        <input
+          type="text"
+          name="color"
+          value="<%= car.color %>"
+          required /></label
+      ><br />
+      <label
+        >Price:
+        <input
+          type="number"
+          name="price"
+          value="<%= car.price %>"
+          required /></label
+      ><br />
+      <button type="submit">Update Car</button>
+    </form>
+    <a href="/cars/<%= car._id %>">Cancel</a>
+  </body>
+</html>

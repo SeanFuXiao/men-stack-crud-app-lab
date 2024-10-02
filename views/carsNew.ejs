@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add New Car</title>
+  </head>
+  <body>
+    <a href="/cars">All Cars</a>
+    <a href="/cars/new">Add New Car</a>
+    <h1>Add New Car</h1>
+    <form action="/cars" method="POST">
+      <label>Make: <input type="text" name="make" required /></label><br />
+      <label>Model: <input type="text" name="model" required /></label><br />
+      <label>Year: <input type="number" name="year" required /></label><br />
+      <label>Mileage: <input type="number" name="mileage" required /></label
+      ><br />
+      <label>Color: <input type="text" name="color" required /></label><br />
+      <label>Price: <input type="number" name="price" required /></label><br />
+      <button type="submit">Create Car</button>
+    </form>
+  </body>
+</html>

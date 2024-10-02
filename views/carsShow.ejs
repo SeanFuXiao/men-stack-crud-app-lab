@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Details</title>
+  </head>
+  <body>
+    <a href="/cars">All Cars</a>
+    <a href="/cars/new">Add New Car</a>
+    <h1><%= car.make %> <%= car.model %></h1>
+    <p>Year: <%= car.year %></p>
+    <p>Mileage: <%= car.mileage %> km</p>
+    <p>Color: <%= car.color %></p>
+    <p>Price: $<%= car.price %></p>
+    <a href="/cars">Back to All Cars</a>
+    <a href="/cars/<%= car._id %>/edit">Edit</a>
+  </body>
+</html>

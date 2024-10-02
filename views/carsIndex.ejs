@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Cars</title>
+  </head>
+  <body>
+    <a href="/cars">All Cars</a>
+    <a href="/cars/new">Add New Car</a>
+    <h1>All Cars</h1>
+    <ul>
+      <% allCars.forEach(car => { %>
+      <li>
+        <span><%= car.make %> <%= car.model %></span>
+        <form
+          action="/cars/<%= car._id %>"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Detail</button>
+        </form>
+
+        <form
+          action="/cars/<%= car._id %>/edit"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit">Edit</button>
+        </form>
+
+        <form
+          action="/cars/<%= car._id %>?_method=DELETE"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
